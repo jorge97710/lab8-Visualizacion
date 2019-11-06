@@ -1,6 +1,7 @@
 library(ggplot2)
 library(ggplot2)
 library(ggpubr)
+library(treemap)
 
 setwd("C:/Users/User/Desktop/lab8-Visualizacion")
 
@@ -22,10 +23,22 @@ hist(datos$Linea ,main = "Centimetros Cubicos",xlab= "centrimetros cubicos", yla
 hist(datos$Asientos ,main = "numero de puertas",xlab= "numero de puertas", ylab="Frecuencia" ,xlim=c(0,7), ylim=c(0,100000))
 hist(datos$Tonelaje ,main = "Tonelaje",xlab= "cantidad de tonelaje", ylab="Frecuencia" ,xlim=c(0,1900000), ylim=c(0,100000))
 hist(datos$Valor.CIF ,main = "Impuesto",xlab= "cantidad de impuesto", ylab="Frecuencia" ,xlim=c(0,199900), ylim=c(0,100000))
+
+
 mytable <- table(datos$row.names)
 lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Pais de Proveniencia") 
+
+ library(tibble)
+
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",        title ="Cantidad de importaciones segun pais",
+)
+
+# Plot
+
 
 counts <- table(datos$row.names)
 barplot(counts, main="Pais de Proveniencia", 
@@ -36,6 +49,11 @@ lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Aduana de ingreso")
 
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "Cantidad de importaciones por aduana de ingreso")
+
+
 counts <- table(datos$Pais.de.Proveniencia)
 barplot(counts, main="Aduana de ingreso", 
    xlab="Aduana de ingreso", col=brewer.pal(n = 3, name = "RdBu"))  
@@ -45,22 +63,49 @@ lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Marca") 
 
+
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "Marcas mas importadas")
+
 mytable <- table(datos$Centimetros.Cubicos)
 lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Distintivo") 
+
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "distintivo")
+
 
 mytable <- table(datos$Distintivo)
 lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Tipo de vehiculo") 
 
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "Tipo de vehiculo")
+
+
 mytable <- table(datos$Tipo.de.Vehiculo)
 lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Tipo de importador") 
 
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "Tipo de importador")
+
 mytable <- table(datos$Tipo.de.Importador)
 lbls <- paste(names(mytable), "\n", mytable, sep="")
 pie(mytable, labels = lbls, 
     main="Tipo de Combustible") 
+prueba <-enframe(mytable,name = "Var1",value="Freq")
+barplot(height=prueba$Freq, names=prueba$Var1, col="#69b3a2" , las=2,cex.lab=0.5)
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq",title = "Tipo de combustible")
+
+
+
+treemap(dtf = prueba,index=c("Var1"),vSize = "Freq")
+
